@@ -5,13 +5,17 @@ from gevent import pywsgi
 from geventwebsocket.handler import WebSocketHandler
 import os
 import json
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 sockets = Sockets(app)
 
-# Ensure you have the necessary ElevenLabs API key set as an environment variable
-os.environ['ELEVEN_API_KEY'] = os.environ["ELEVEN_LABS_API"]
+# @app.route('/')
+# def index():
+#     return 'Hello World!'
 
+# Ensure you have the necessary ElevenLabs API key set as an environment variable
 @app.route('/tts', methods=['POST'])
 def tts():
     # Extract text from the POST request
@@ -26,6 +30,13 @@ def tts():
 
     # Return a response to upgrade to WebSocket
     return jsonify({"message": "Please connect to WebSocket to receive the audio stream."})
+
+@sockets.route('/test')
+def test_socket(ws):
+    print('test socket')
+    message = ws.receive()
+    print(message)
+    ws.send('message received: ' + message)
 
 @sockets.route('/tts/socket')
 def tts_socket(ws):
@@ -53,8 +64,6 @@ def tts_socket(ws):
         ws.send(audio_chunk)
 
 if __name__ == '__main__':
-
-
     server = pywsgi.WSGIServer(('127.0.0.1', 5000), app, handler_class=WebSocketHandler)
     print("Server listening on: http://127.0.0.1:5000")
     server.serve_forever()
