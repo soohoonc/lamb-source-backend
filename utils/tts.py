@@ -3,12 +3,11 @@ from flask_sockets import Sockets
 from elevenlabs.api.tts import TTS, Voice, Model
 import os
 import json
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 sockets = Sockets(app)
-
-# Ensure you have the necessary ElevenLabs API key set as an environment variable
-os.environ['ELEVEN_API_KEY'] = "74c3f0887587657a1fda80e9fd82ed0c"
 
 @app.route('/tts', methods=['POST'])
 def tts():
@@ -43,7 +42,6 @@ def tts_socket(ws):
         text=text,
         voice=voice,
         model=model,
-        api_key=os.environ.get('ELEVEN_API_KEY')
     )
 
     # Send audio stream back through WebSocket
