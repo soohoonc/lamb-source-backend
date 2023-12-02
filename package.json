@@ -1,0 +1,21 @@
+{
+  "name": "lamb-source-backend",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "bun index.js",
+    "dev": "bun index.ts"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.10.2",
+    "express": "^4.18.2"
+  }
+}
