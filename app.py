@@ -22,7 +22,7 @@ def tts():
     data = request.json
     text = data['text']
     voice_id = data.get('voice_id', '6VOIi9iZnh1UwYhl6DKD')  # Replace with your default voice ID
-    model_id = data.get('model_id', 'eleven_monolingual_v2')  # Replace with your default model ID
+    model_id = data.get('model_id', 'eleven_multilingual_v2')  # Replace with your default model ID
 
     # Create Voice and Model objects
     voice = Voice(voice_id=voice_id)
@@ -45,7 +45,7 @@ def tts_socket(ws):
     data = json.loads(message)
     text = data['text']
     voice_id = data.get('voice_id', '6VOIi9iZnh1UwYhl6DKD')  # Replace with your default voice ID
-    model_id = data.get('model_id', 'eleven_monolingual_v2')  # Replace with your default model ID
+    model_id = data.get('model_id', 'eleven_multilingual_v2')  # Replace with your default model ID
 
     # Create Voice and Model objects
     voice = Voice(voice_id=voice_id)
